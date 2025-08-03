@@ -1,4 +1,3 @@
-# LED点滅
 from picozero import LED        # LED制御用
 from time import sleep          # 待ち時間
 
@@ -9,3 +8,4 @@ while True:                     # ずっと繰り返す
     sleep(0.5)                  # 0.5秒待つ
     led1.off()                  # 消灯
     sleep(0.5)                  # 0.5秒待つ
+

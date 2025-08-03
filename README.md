@@ -1,1 +1,10 @@
-# Rasberry_Pi_pico_W
+# Rasberry Pi pico W
+
+## 目的
+プログラミング部内で、Rasberry Pi pico W のソースコードを共有するためのリポジトリです。  
+2025/08/03 現在、「とうほくプロコン2025」のワークショップ手伝いでいくつかサンプルを準備する必要があり、情報共有のために運用しています。
+
+## 方針
+ - **小中学生に見せる**ことを想定し、なるべく簡潔に書く
+ - コメントを多めに入れる
+ - ライブラリとして、[**picozero**](https://github.com/RaspberryPiFoundation/picozero) を使用することを推奨

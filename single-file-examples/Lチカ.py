@@ -8,4 +8,3 @@ while True:                     # ずっと繰り返す
     sleep(0.5)                  # 0.5秒待つ
     led1.off()                  # 消灯
     sleep(0.5)                  # 0.5秒待つ
-

@@ -1,7 +1,7 @@
 from picozero import Servo   # サーボ用
 from time import sleep       # 待ち時間
 
-servo = Servo(0)             # GP0に接続して初期化
+servo = Servo(0, None, 0.0005, 0.0024)  # GP0に接続して初期化
 
 while True:                  # ずっと繰り返す
     servo.value = 0 / 90   # サーボを0°に動かす

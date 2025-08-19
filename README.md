@@ -9,15 +9,17 @@ Rasberry Pi pico W の使い方、ソースコードを共有するためのリ�
  - コメントを多めに入れる
  - ライブラリとして、[**picozero**](https://github.com/RaspberryPiFoundation/picozero) を使用することを推奨
 
+# とうほくプロコンワークショップ「ラズパイPicoで酷暑を乗り切ろう」
+
 ## 準備
  - Raspberry Pi pico W（ラズベリー パイ ピコ ダブリュー）
  - USBケーブル（USBマイクロB端子⇔USB-A端子）
  - パソコン（Thonyインストール済）
 1. パソコンでThonyを起動
 2. パソコンとラズパイをUSBケーブルで接続
-<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/95013959a7ad81ae68fc6c94ae27900b487d3585/images/cable_connect.png" width="80%" />
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/cable_connect.png" width="80%" />
 3. Thonyでラズパイを使用する設定を行う
-<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/95013959a7ad81ae68fc6c94ae27900b487d3585/images/thony_setting.png" width="80%" />
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/thony_setting.png" width="80%" />
 
 ## プログラムを書こう 
 ### print文
@@ -26,7 +28,9 @@ Thonyでコードを打ち込んで「実行ボタン▶️」を押しましょ
 print("Hello, World!")
 ```
 実行結果
-<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/95013959a7ad81ae68fc6c94ae27900b487d3585/images/result1.png" width="80%" />
+
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/result1.png" width="80%" />
+
 - **`print`は文や数を表示する指示です。**
 	 - 文字を表示するときは `"こんにちは"` このように囲います。
      - `print(1+1)` のように書くと、算数の計算もできます。

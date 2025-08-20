@@ -9,6 +9,15 @@ Rasberry Pi pico W の使い方、ソースコードを共有するためのリ�
  - コメントを多めに入れる
  - ライブラリとして、[**picozero**](https://github.com/RaspberryPiFoundation/picozero) を使用することを推奨
 
+## 共有サンプル
+ - [単一ファイルで動くサンプル](https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/tree/5818355007a6347ab4c75040784721f0ee3f67ed/single-file-examples)
+
+___
+#### 以下はMarkDownで書いたWEB資料です。HTMLに変換したものを、GitHub Pagesで公開しています。
+https://nitsc-proclub.github.io/Rasberry_Pi_pico_W/
+
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/page.png" width="80%" />
+
 # とうほくプロコンワークショップ「ラズパイPicoで酷暑を乗り切ろう」
 
 ## 準備

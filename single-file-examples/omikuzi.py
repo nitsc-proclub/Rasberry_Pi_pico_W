@@ -94,7 +94,7 @@ def main():
     text("結果は...",24,57,st7789.WHITE,4,0.25)
     randomluck()
 
-connectnetwork("銀狼","furiyamanuame")
+connectnetwork("任意のssid","任意のパスワード")
 
 alrpre = 0
 while True:
@@ -106,6 +106,7 @@ while True:
         if alrpre == 1:
             alrpre = 0
     time.sleep(0.01)
+
 
 
 

@@ -33,7 +33,7 @@
             --border-color: #e0e7ef;
             --accent-blue: #02A1FD;
             --accent-yellow: #F9D805;
-            --code-bg: #fdfdfd; /* 少しだけ色味を変更 */
+            --code-bg: #fdfdfd;
             --main-bg: #ffffff;
             --table-stripe-bg: #f8f9fa;
             --details-open-bg: #f0f7ff;
@@ -89,30 +89,25 @@
 
             header.site h1 {
                 margin: 0;
-                font-size: 1.25rem;
+                font-size: 1.1rem; /* スマホ向けに少し調整 */
                 color: var(--heading-color);
             }
 
         /* ========== レイアウト ========== */
         .page-wrapper {
-            /* コンテンツ全体の最大幅を設定します */
             max-width: 1320px;
-            /* ブロック自体を左右の中央に配置します（最も確実な方法です）*/
             margin-left: auto;
             margin-right: auto;
-            /* 以下はコンテナ内のレイアウト設定です */
             display: grid;
             align-items: start;
             gap: 2rem;
             padding: 0 2rem;
             width: 100%;
             box-sizing: border-box;
-            /* 本文(1fr)と目次(240px)の列を定義します */
             grid-template-columns: 1fr 240px;
         }
 
         main {
-            /* 本文は1列目に配置されます */
             grid-column: 1;
             background-color: var(--main-bg);
             padding: 1.5rem 2.5rem;
@@ -120,10 +115,11 @@
             box-shadow: 0 8px 30px rgba(0,0,0,0.05);
             margin-top: 2rem;
             margin-bottom: 2rem;
+            /* ★追加: はみ出し防止 */
+            overflow-x: hidden;
         }
 
         .toc-container {
-            /* 目次は2列目に配置されます */
             grid-column: 2;
             position: sticky;
             top: 90px;
@@ -185,13 +181,14 @@
         }
 
         pre {
-            position: relative; /* コピーボタンを配置するため */
+            position: relative;
             background: var(--code-bg);
             border: 1px solid var(--border-color);
             border-left: 5px solid var(--accent-blue);
             border-radius: .5rem;
             padding: 1rem;
-            overflow: auto;
+            /* ★変更: 横スクロール可能に */
+            overflow-x: auto;
         }
 
         code {
@@ -208,7 +205,6 @@
             border: none;
         }
 
-        /* ★コピーボタンのスタイル */
         .copy-btn {
             position: absolute;
             top: 0.6rem;
@@ -241,9 +237,9 @@
             border-color: #28a745;
         }
 
-
         /* ========== レスポンシブ調整 ========== */
-        @media (max-width: 1200px) {
+        /* ★変更: ブレークポイントを992pxに変更 */
+        @media (max-width: 992px) {
             .page-wrapper {
                 grid-template-columns: 1fr;
                 padding: 0 1rem;
@@ -253,14 +249,35 @@
             main {
                 grid-column: 1;
                 padding: 1rem 1.5rem;
+                margin-top: 1rem;
             }
 
             .toc-container {
                 display: none;
             }
+
+            body {
+                font-size: 16px;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            h3 {
+                font-size: 1.3rem;
+            }
         }
 
-        /* (省略) 他のスタイルは変更なし */
+        /* ★追加: 表のはみ出しを防ぐラッパー */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
         footer.site-footer {
             padding: 2rem 1rem;
             text-align: center;
@@ -328,10 +345,12 @@
         table {
             border-collapse: collapse;
             width: 100%;
-            margin: 1.5rem 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border-radius: 8px;
-            overflow: hidden;
+            /* ★変更: table-wrapperに移したスタイルを削除 */
+            /* margin: 1.5rem 0; */
+            /* box-shadow: 0 2px 5px rgba(0,0,0,0.05); */
+            /* border-radius: 8px; */
+            /* overflow: hidden; */
+            min-width: 500px; /* ★追加: 表の最小幅を確保 */
         }
 
         th, td {

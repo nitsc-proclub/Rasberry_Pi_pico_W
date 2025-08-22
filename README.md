@@ -216,7 +216,21 @@ GPIO28番ピン(ADC2)を使用することをラズパイに伝える
 
 
 ## サーボモーターを動かす
+#### サーボモーターとは
+ - 回転角度を決められるモーターです。  
+ SG90の場合・・・0度から180度の範囲
+ - 足が3本です  
+ 平らな面から見たときに
+   - 赤の線が＋（プラス）の電源
+   - 黄の線が出力
+   - 茶の足が－（マイナス）
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/SG-90.png" width="30%" />
+
 ### サーボモーターの接続
+ジャンパー線を使って繋げましょう。
+
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/servo_connect.png" width="65%" />
+
 ### サーボモーターのプログラム
 ```python
 from picozero import Servo   # サーボ用
@@ -230,6 +244,22 @@ while True:                  # ずっと繰り返す
     servo.value = 135 / 180  # サーボを135°に動かす
     sleep(0.5)               # 0.5秒待つ
 ```
+プログラムを日本語に直すと以下のようになります。
+```サーボを制御する宣言
+待ち時間を指定する宣言
+
+GPIO0番ピン(GP0)を使用する
+
+ここから下が無限ループ
+    サーボを45度に動かす
+    0.5秒待つ
+    サーボを135度に動かす
+    0.5秒待つ
+```
+#### 動作
+0.5秒ごとにモーターが45度⇔135度と動きます。
+
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/videos/servo.mp4" width="30%" />
 
 ## 作品制作：暑いときに自動であおぐうちわ
 ### サーボモーターと温度センサの接続

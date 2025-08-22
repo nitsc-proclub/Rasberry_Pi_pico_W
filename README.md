@@ -48,7 +48,7 @@ print(2)
 ```
 
 #### 算数の計算
-💡`print`に計算の式を入れて遊んでみましょう
+💡`print`に計算の式を入れて遊んでみましょう。
 
 | 計算 | 記号 |
 | ------------- | ------------- |
@@ -106,7 +106,7 @@ print(5 + 4)
 <img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/breadboard_line.png" width="70%" />
 
 #### ラズパイをボードに差し込む
-画像のように差し込みましょう  
+画像のように差し込みましょう。
 
 <img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/breadboard_rasberrypi.png" width="50%" />
 
@@ -117,8 +117,6 @@ print(5 + 4)
  - 足が2本です
    - 足が長い方が＋（プラス）
    - 足が短い方－（マイナス）
-   
-購入はこちら：https://akizukidenshi.com/catalog/g/g111577/
 
 ### LEDの接続
  - ラズパイの左上から7番目のピンの横に足が長い方を差し込みます
@@ -152,7 +150,7 @@ GPIO5番ピン(GP05)を使用することをラズパイに伝える
     0.5秒待つ
 ```
 #### 動作
-0.5秒ごとに点灯⇔消灯をくりかえします
+0.5秒ごとに点灯⇔消灯をくりかえします。
 
 <img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/videos/LED.gif" width="30%" />
 
@@ -162,7 +160,23 @@ ___
 ___
 
 ## 温度センサで温度を測る
+#### 温度センサとは
+ - 温度によって流れる電圧の大きさが変わります
+ - 足が3本です  
+ 平らな面から見たときに
+   - 左の足が＋（プラス）の電源
+   - 真ん中の足が出力
+   - 右の足が－（マイナス）
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/MCP9701.png" width="40%" />
+
+[MCP9701データシート](https://akizukidenshi.com/goodsaffix/MCP9701-ETO.pdf) より引用
+
 ### 温度センサの接続
+ - ラズパイの右上から5番目のピンの横に左の足を差し込みます
+ - ラズパイの右上から7番目のピンの横に真ん中の足を差し込みます
+ - ラズパイの右上から8番目のピンの横に右の足を差し込みます
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/tempsensor_connect.png" width="80%" />
+
 ### 温度センサのプログラム
 ```python
 from picozero import TemperatureSensor  # ADCを電圧[V]に変換
@@ -173,9 +187,33 @@ ts = TemperatureSensor(28)              # GP28（ADC2）に温度センサを接
 while True: 					        # ずっと繰り返す
     v = ts.voltage                      # 電圧を取得
     temp = (v - 0.400) / 0.0195         # 電圧を温度に変換する式
-    print(f"{temp:.3f}°C")			   # 温度を表示
+    print(f"{temp:.3f}°C")			    # 温度を表示
     sleep(0.2)                          # 0.2秒待つ
 ```
+プログラムを日本語に直すと以下のようになります。
+```
+温度センサを制御する宣言
+待ち時間を指定する宣言
+
+GPIO28番ピン(ADC2)を使用することをラズパイに伝える
+
+ここから下が無限ループ
+    温度センサから電圧を取得する
+    電圧を温度に変換する
+    温度を表示する
+    0.2秒待つ
+```
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/tempsensor_flow.png" width="100%" />
+
+#### 動作
+0.2秒ごとに温度を表示します。
+
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/videos/temp1.mp4" width="30%" />
+
+シェルを右クリックして、「プロッターを表示」を押すと、グラフを見ることができます。
+
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/videos/temp2.mp4" width="30%" />
+
 
 ## サーボモーターを動かす
 ### サーボモーターの接続

@@ -262,7 +262,19 @@ GPIO0番ピン(GP0)を使用する
 <img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/videos/servo.mp4" width="30%" />
 
 ## 作品制作：暑いときに自動であおぐうちわ
+学んだ内容を組み合わせて作品を制作しましょう。
+
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/learned.png" width="80%" />
+
+今回は例として、「暑いときに自動であおぐうちわ」を作ってみます。  
+もし温度が **しきい値** （基準の値） よりも高ければモーターが動くようにします。  
+このような処理を **条件分岐** と言います。
+                
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/fan_flow.png" width="65%" />
+
 ### サーボモーターと温度センサの接続
+今までと同じ場所にサーボモーターと温度センサをつなぎます。
+
 ### 暑いときに自動であおぐうちわのプログラム
 ```python
 from picozero import TemperatureSensor, Servo    # 温度センサとサーボを使用
@@ -282,6 +294,13 @@ while True:                                      # 無限ループ
         servo.value = 135/180                    # 135度に動かす
         sleep(0.5)                               # 0.5秒待つ
 ```
+ここで、しきい値の値は`28.0`だけでなく、自由に数字を入力して大丈夫です。
+```python
+TH = 28.0                                        # しきい値(温度)：これを超えたら作動
+```
+「温度センサを手で温めたら何度になるか...？」などを記録して、「しきい値」を決めましょう。
+                
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/temperature_measurement.png" width="70%" />
 
 ## 照度センサで明るさを測る
 ### 照度センサの接続

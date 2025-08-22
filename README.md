@@ -302,8 +302,16 @@ TH = 28.0                                        # しきい値(温度)：これ
                 
 <img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/temperature_measurement.png" width="70%" />
 
-## 照度センサで明るさを測る
+## おまけ：照度センサで明るさを測る
+#### 照度センサとは
+ - 明るさによって流れる電圧の大きさが変わります
+ - 足が2本です  
 ### 照度センサの接続
+ - ラズパイの左下から1番目のピンの横に片方の足を差し込みます
+ - ラズパイの左上から3番目のピンの横にもう片方の足を差し込みます
+
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/illuminance_connect.png" width="80%" />
+
 ### 照度センサのプログラム
 ```python
 from picozero import Button         # 照度センサ→Button扱い
@@ -317,6 +325,8 @@ While True:                         # ずっと繰り返す
     else: print(“暗い”)        　# そうでなければ（暗かったら）「暗い」と表示
     sleep(0.1)                      # 0.1秒待つ
 ```
+#### 動作
+0.1秒ごとに明るいか暗いかを表示します。
 ___
 
 制作：2025 仙台高専プログラミング部

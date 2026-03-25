@@ -134,7 +134,193 @@ GPIO5番ピン(GP05)を使用することをラズパイに伝える
 
 <video src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/videos/LED.mp4?raw=true" width="30%" autoplay loop muted playsinline></video>
 
-## 温度センサで温度を測る
+### 💡LED：応用問題💡
+LEDの数を増やしてみよう
+
+<image src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/LED_4.png?raw=true" width="45%" autoplay loop muted playsinline></image>
+
+## サーボモーターを動かす
+#### サーボモーターとは
+ - 回転角度を決められるモーターです。  
+ SG90の場合・・・0度から180度の範囲
+ - 足が3本です  
+ 平らな面から見たときに
+   - 赤の線が＋（プラス）の電源
+   - 黄の線が出力
+   - 茶の足が－（マイナス）
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/SG-90.png" width="30%" />
+
+### サーボモーターの接続
+ジャンパー線を使って繋げましょう。
+
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/servo_connect.png" width="65%" />
+
+### サーボモーターのプログラム
+```python
+from picozero import Servo   # サーボ用
+from time import sleep       # 待ち時間
+
+servo = Servo(0, None, 0.0005, 0.0024) # GP0に接続して初期化
+
+while True:                  # ずっと繰り返す
+    servo.value = 45 / 180   # サーボを45°に動かす
+    sleep(0.5)               # 0.5秒待つ
+    servo.value = 135 / 180  # サーボを135°に動かす
+    sleep(0.5)               # 0.5秒待つ
+```
+プログラムを日本語に直すと以下のようになります。
+```サーボを制御する宣言
+待ち時間を指定する宣言
+
+GPIO0番ピン(GP0)を使用する
+
+ここから下が無限ループ
+    サーボを45度に動かす
+    0.5秒待つ
+    サーボを135度に動かす
+    0.5秒待つ
+```
+#### 動作
+0.5秒ごとにモーターが45度⇔135度と動きます。
+
+<video src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/videos/servo.mp4?raw=true" width="80%" autoplay loop muted playsinline></video>
+
+### 💡サーボモーター：応用問題💡
+#### あっちむいてホイを作ってみよう
+ヒント
+ -  `import random` を最初に書くと「ランダム」が使えます
+ 
+つかいかた
+ -  `random.choice([45, 135])`→ 45 か 135 にランダムで決まるという意味
+
+## ラズパイをWi-Fiにつなげる
+#### Wi-Fiとは
+ - 電波でモノとモノをつなぐ仕組みです。
+ - ケーブルを使わない→**無線接続**
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/Wi-Fi.png" width="40%" />
+
+### 無線接続のプログラム
+```python
+from wifi import run	  # wifi.pyからrun関数をインポート
+
+SSID = ‘’				  # Wi-FiのSSID
+PASSWORD = ‘’			  # Wi-Fiのパスワード
+
+html = """
+<!doctype html>
+<h1>Hello World</h1>
+"""                  	  # HTMLの内容
+
+run(SSID, PASSWORD, html) # Wi-Fiに接続してWebサーバを起動
+```
+プログラムを日本語に直すと以下のようになります。
+```サーボを制御する宣言
+wifi.pyからrun関数をインポート
+
+Wi-FiのSSID
+Wi-Fiのパスワード
+
+HTMLの内容
+
+Wi-Fiに接続してWebサーバを起動
+```
+#### 動作
+プログラムを実行して、表示された「**IPアドレス**」にアクセスします。
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/IPaddress.png" width="40%" />
+IPアドレスはWebサイトの住所のことです。
+
+Webサイトができて、「Hello World」が表示されたことが確認できます。
+ラズパイが「**Webサーバー**」になっているのです。
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/Web_HelloWorld.png" width="40%" />
+
+### 💡Webサイト：応用問題💡
+#### 自分だけのWebページを作ってみよう！
+
+**🚀 きみだけのWebサイトをつくろう！カスタマイズ大作戦！**
+
+これは、Webサイトをつくるための「HTML」を、パワーアップさせるガイドです！
+
+#### **🏃‍♂️‍➡️スタート地点**
+
+```html
+html = """
+<!doctype html>
+<h1>Hello World</h1>
+"""
+```
+#### **⭐ Webサイトをかっこよくする 4ステップ**
+**元のプログラムに、これらのコードを追加するとどうなるか見てみよう！**
+
+| ステップ | 追加するコード | どこに入れる？ | 結果 |
+| ----- | ----- | ----- | ----- |
+| **1\. 土台づくり** | `<body> <h1>Hello World</h1></body>` | `<h1> </h1>` のそとがわ | Webページとして**正しくうごく**ための枠組みができます |
+| **2\. 背景色** | `<body style="background-color: skyblue;">` | `<body>`の中 | **画面ぜんぶが水色** になります |
+| **3\. 文字色** | `<h1 style="color: red;">` | `<h1>` の中 | 文字の色が**赤色**になります |
+| **4\. 文をふやす** | `<p>これは追加された文です</p>` | `</h1>` のすぐ下 | 見出しの下に新しい文が追加されます |
+
+ #### ✅完成コードの例
+
+```html
+html = """
+<!doctype html>
+<body style="background-color: skyblue;">
+    <h1 style="color: red;">Hello World</h1>
+    <p>これは追加された文です</p>
+</body>
+"""
+```
+
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/Web_HelloWorld_2.png" width="40%" />
+
+## 作品制作：どこでもポチっとIoTスイッチ
+学んだ内容を組み合わせて作品を制作しましょう。
+
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/learned.png" width="80%" />
+
+今回はWi-Fiをつなげてパソコンから操作する作品にします。
+無線通信でサーボモーターを動かす装置です。
+
+### サーボモーターの接続
+今までと同じ場所にサーボモーターをつなぎます。
+
+### どこでもポチっとIoTスイッチのプログラム
+```python
+#Webボタンでサーボを動かす
+from wifi import run_button                      # wifi.pyからrun_button関数をインポート
+from picozero import Servo                       # サーボを使うためのライブラリ
+from time import sleep                           # 待ち時間を入れるための関数
+
+SSID = ''                                	     # Wi-FiのSSID
+PASSWORD = ''                            	     # Wi-Fiのパスワード
+servo = Servo(0, None, 0.0005, 0.0024)           # GP0にサーボを接続
+servo.value = 45 / 180                           # はじめの角度（待機位置）
+
+html = """
+<!doctype html>
+<button onclick=“fetch(‘/push’)”>サーボモーターを動かす</button>
+"""                                              # Webページの内容
+def push_servo():                                # ボタンが押されたときに呼ばれる処理
+    servo.value = 45 / 180                       # 45°へ動かす
+    sleep(0.15)                                  # 0.15秒待つ
+    servo.value = 135 / 180                      # 135°へ動かす
+    sleep(0.25)                                  # 0.25秒待つ
+    servo.value = 45 / 180                       # 45°へ戻す
+
+run_button(SSID, PASSWORD, html, push_servo)     # Wi-Fi接続してボタンWebサーバを起動
+```
+
+#### 動作
+Webページのボタンを押すとサーボモータが動きます。
+<video src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/videos/Web_servo.gif?raw=true" width="60%" autoplay loop muted playsinline></video>
+
+応用すると・・・
+ - 照明のスイッチを無線で操作
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/servo_light.png" width="30%" />
+
+ - 猫じゃらしを無線で操作
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/servo_cat.png" width="30%" />
+
+## おまけ：温度センサで温度を測る
 #### 温度センサとは
  - 温度によって流れる電圧の大きさが変わります
  - 足が3本です  
@@ -188,94 +374,6 @@ GPIO28番ピン(ADC2)を使用することをラズパイに伝える
 シェルを右クリックして、「プロッターを表示」を押すと、グラフを見ることができます。
 
 <video src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/videos/temp2.mp4?raw=true" width="70%" autoplay loop muted playsinline></video>
-
-
-## サーボモーターを動かす
-#### サーボモーターとは
- - 回転角度を決められるモーターです。  
- SG90の場合・・・0度から180度の範囲
- - 足が3本です  
- 平らな面から見たときに
-   - 赤の線が＋（プラス）の電源
-   - 黄の線が出力
-   - 茶の足が－（マイナス）
-<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/SG-90.png" width="30%" />
-
-### サーボモーターの接続
-ジャンパー線を使って繋げましょう。
-
-<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/servo_connect.png" width="65%" />
-
-### サーボモーターのプログラム
-```python
-from picozero import Servo   # サーボ用
-from time import sleep       # 待ち時間
-
-servo = Servo(0, None, 0.0005, 0.0024) # GP0に接続して初期化
-
-while True:                  # ずっと繰り返す
-    servo.value = 45 / 180   # サーボを45°に動かす
-    sleep(0.5)               # 0.5秒待つ
-    servo.value = 135 / 180  # サーボを135°に動かす
-    sleep(0.5)               # 0.5秒待つ
-```
-プログラムを日本語に直すと以下のようになります。
-```サーボを制御する宣言
-待ち時間を指定する宣言
-
-GPIO0番ピン(GP0)を使用する
-
-ここから下が無限ループ
-    サーボを45度に動かす
-    0.5秒待つ
-    サーボを135度に動かす
-    0.5秒待つ
-```
-#### 動作
-0.5秒ごとにモーターが45度⇔135度と動きます。
-
-<video src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/videos/servo.mp4?raw=true" width="80%" autoplay loop muted playsinline></video>
-
-## 作品制作：暑いときに自動であおぐうちわ
-学んだ内容を組み合わせて作品を制作しましょう。
-
-<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/learned.png" width="80%" />
-
-今回は例として、「暑いときに自動であおぐうちわ」を作ってみます。  
-もし温度が **しきい値** （基準の値） よりも高ければモーターが動くようにします。  
-このような処理を **条件分岐** と言います。
-                
-<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/fan_flow.png" width="65%" />
-
-### サーボモーターと温度センサの接続
-今までと同じ場所にサーボモーターと温度センサをつなぎます。
-
-### 暑いときに自動であおぐうちわのプログラム
-```python
-from picozero import TemperatureSensor, Servo    # 温度センサとサーボを使用
-from time import sleep                           # 待ち時間
-
-TH = 28.0                                        # しきい値(温度)：これを超えたら作動
-
-servo = Servo(0, None, 0.0005, 0.0024)	       # サーボ(GP0)
-ts = TemperatureSensor(28)                       # 温度センサ(GP28/ADC2)
-
-while True:                                      # 無限ループ
-    temp = (ts.voltage - 0.400) / 0.0195         # 電圧→温度[℃]に変換（MCP9701）
-    print(f"{temp:.1f}℃")                       # 温度を表示
-    if temp > TH:                                # しきい値を超えた？
-        servo.value = 45/180                     # 45度に動かす
-        sleep(0.5)                               # 0.5秒待つ
-        servo.value = 135/180                    # 135度に動かす
-        sleep(0.5)                               # 0.5秒待つ
-```
-ここで、しきい値の値は`28.0`だけでなく、自由に数字を入力して大丈夫です。
-```python
-TH = 28.0                                        # しきい値(温度)：これを超えたら作動
-```
-「温度センサを手で温めたら何度になるか...？」などを記録して、「しきい値」を決めましょう。
-                
-<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/temperature_measurement.png" width="70%" />
 
 ## おまけ：照度センサで明るさを測る
 #### 照度センサとは

@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>とうほくプロコンワークショップ「ラズパイ Pico W で『どこでもポチっとIoTスイッチ』」</title>
+    <link rel="icon" href="favicon.ico">
+
+    <meta property="og:title" content="ラズパイ Pico W で『どこでもポチっとIoTスイッチ』">
+    <meta property="og:description" content="仙台高専プログラミング部が制作した、Raspberry Pi Picoを使った電子工作ワークショップの解説ページです。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nitsc-proclub.github.io/Rasberry_Pi_pico_W/">
+    <meta property="og:image"
+        content="https://raw.githubusercontent.com/nitsc-proclub/Rasberry_Pi_pico_W/main/images/page.png">
+    <meta property="og:site_name" content="とうほくプロコンワークショップ">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ラズパイ Pico W で『どこでもポチっとIoTスイッチ』">
+    <meta name="twitter:description" content="仙台高専プログラミング部が制作した、Raspberry Pi Picoを使った電子工作ワークショップの解説ページです。">
+    <meta name="twitter:image"
+        content="https://raw.githubusercontent.com/nitsc-proclub/Rasberry_Pi_pico_W/main/images/page.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ========== 基本設定と配色 ========== */
+        :root {
+            /* ライトモードの配色 */
+            --bg-color: #f7f9fc;
+            --text-color: #2c3e50;
+            --heading-color: #1c2833;
+            --link-color: #007bff;
+            --border-color: #e0e7ef;
+            --accent-blue: #02A1FD;
+            --accent-yellow: #F9D805;
+            --code-bg: #fdfdfd;
+            --main-bg: #ffffff;
+            --table-stripe-bg: #f8f9fa;
+            --details-open-bg: #f0f7ff;
+            --header-bg: rgba(255, 255, 255, 0.85);
+            --btn-bg: #e9ecef;
+            --btn-text: #495057;
+        }
+
+        /* ダークモードの配色 */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #1a1a1a;
+                --text-color: #ecf0f1;
+                --heading-color: #ffffff;
+                --link-color: #3498db;
+                --border-color: #34495e;
+                --accent-blue: #3498db;
+                --accent-yellow: #f1c40f;
+                --code-bg: #2c2c2c;
+                --main-bg: #212121;
+                --table-stripe-bg: #2c3e50;
+                --details-open-bg: #283747;
+                --header-bg: rgba(26, 26, 26, 0.85);
+                --btn-bg: #34495e;
+                --btn-text: #ecf0f1;
+            }
+        }
+
+        /* ========== 全体のスタイルとフォント設定 ========== */
+        body {
+            margin: 0;
+            font-family: 'Noto Sans JP', "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Segoe UI", system-ui, -apple-system, sans-serif;
+            font-size: 17px;
+            line-height: 1.9;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* ========== ヘッダー ========== */
+        header.site {
+            padding: 1rem 1.5rem;
+            border-bottom: 2px solid;
+            border-image: linear-gradient(to right, var(--accent-blue), var(--accent-yellow)) 1;
+            position: sticky;
+            top: 0;
+            background-color: var(--header-bg);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+        }
+
+        header.site h1 {
+            margin: 0;
+            font-size: 1.1rem;
+            /* スマホ向けに少し調整 */
+            color: var(--heading-color);
+        }
+
+        /* ========== レイアウト ========== */
+        .page-wrapper {
+            max-width: 1320px;
+            margin-left: auto;
+            margin-right: auto;
+            display: grid;
+            align-items: start;
+            gap: 2rem;
+            padding: 0 2rem;
+            width: 100%;
+            box-sizing: border-box;
+            grid-template-columns: 1fr 240px;
+        }
+
+        main {
+            grid-column: 1;
+            background-color: var(--main-bg);
+            padding: 1.5rem 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            /* ★追加: はみ出し防止 */
+            overflow-x: hidden;
+        }
+
+        .toc-container {
+            grid-column: 2;
+            position: sticky;
+            top: 90px;
+            padding-top: 2rem;
+        }
+
+        /* ========== タイポグラフィと見出し ========== */
+        h1,
+        h2,
+        h3,
+        h4 {
+            scroll-margin-top: 90px;
+            color: var(--heading-color);
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid;
+            border-image: linear-gradient(to right, var(--accent-blue), var(--accent-yellow)) 1;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: '✔';
+            display: inline-block;
+            width: 1.8rem;
+            height: 1.8rem;
+            line-height: 1.8rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-yellow));
+            color: white;
+            font-size: 1.2rem;
+            margin-right: 0.8rem;
+            border-radius: 50%;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            border-bottom: 2px dashed var(--accent-blue);
+            padding-bottom: 0.3rem;
+        }
+
+        h4 {
+            font-size: 1.2rem;
+            border-left: 5px solid var(--accent-yellow);
+            padding-left: 0.8rem;
+            background-color: var(--table-stripe-bg);
+            padding-top: 0.2rem;
+            padding-bottom: 0.2rem;
+        }
+
+        /* ========== コードブロックとコピーボタン ========== */
+        pre,
+        code,
+        kbd,
+        samp {
+            font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+            font-size: .95rem;
+            line-height: 1.75;
+        }
+
+        pre {
+            position: relative;
+            background: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-left: 5px solid var(--accent-blue);
+            border-radius: .5rem;
+            padding: 1rem;
+            /* ★変更: 横スクロール可能に */
+            overflow-x: auto;
+        }
+
+        code {
+            background: var(--table-stripe-bg);
+            padding: .1rem .4rem;
+            border-radius: .3rem;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            border: none;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.6rem;
+            right: 0.6rem;
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 0.25rem 0.6rem;
+            font-size: 0.8rem;
+            font-family: 'Noto Sans JP', sans-serif;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.2s ease;
+        }
+
+        pre:hover .copy-btn {
+            opacity: 1;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+
+        .copy-btn.copied {
+            background-color: #28a745;
+            color: white;
+            border-color: #28a745;
+        }
+
+        /* ========== レスポンシブ調整 ========== */
+        /* ★変更: ブレークポイントを992pxに変更 */
+        @media (max-width: 992px) {
+            .page-wrapper {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+                gap: 0;
+            }
+
+            main {
+                grid-column: 1;
+                padding: 1rem 1.5rem;
+                margin-top: 1rem;
+            }
+
+            .toc-container {
+                display: none;
+            }
+
+            body {
+                font-size: 16px;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            h3 {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* ★追加: 表のはみ出しを防ぐラッパー */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        footer.site-footer {
+            padding: 2rem 1rem;
+            text-align: center;
+            color: #888;
+            margin-top: 2rem;
+            border-top: 2px solid;
+            border-image: linear-gradient(to right, var(--accent-blue), var(--accent-yellow)) 1;
+        }
+
+        .workshop-list-btn {
+            display: inline-block;
+            margin-bottom: 1rem;
+            padding: 0.65rem 1.1rem;
+            border-radius: 999px;
+            border: 1px solid var(--accent-blue);
+            background: linear-gradient(135deg, var(--accent-blue), #4db9ff);
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(2, 161, 253, 0.25);
+            transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+        }
+
+        .workshop-list-btn:hover {
+            color: #fff;
+            text-decoration: none;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 18px rgba(2, 161, 253, 0.35);
+            filter: brightness(1.03);
+        }
+
+        .workshop-list-btn:focus-visible {
+            outline: 3px solid var(--accent-yellow);
+            outline-offset: 2px;
+        }
+
+        .toc-container h3 {
+            margin-top: 0;
+            font-size: 1rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            color: var(--heading-color);
+        }
+
+        .toc-container ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc-container li a {
+            display: block;
+            padding: 0.3rem 0.5rem;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 0.3rem;
+            transition: all 0.2s;
+            border-left: 4px solid transparent;
+        }
+
+        .toc-container li a:hover {
+            background-color: var(--details-open-bg);
+            border-left-color: var(--accent-yellow);
+            transform: translateX(4px);
+        }
+
+        .toc-container .toc-h3 {
+            padding-left: 1.2rem;
+            font-size: 0.9em;
+        }
+
+        img,
+        video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.5rem auto;
+            border-radius: 8px;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        a:hover {
+            color: var(--accent-blue);
+            text-decoration: underline;
+            text-decoration-color: var(--accent-yellow);
+            text-decoration-thickness: 2px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            /* ★変更: table-wrapperに移したスタイルを削除 */
+            /* margin: 1.5rem 0; */
+            /* box-shadow: 0 2px 5px rgba(0,0,0,0.05); */
+            /* border-radius: 8px; */
+            /* overflow: hidden; */
+            min-width: 500px;
+            /* ★追加: 表の最小幅を確保 */
+        }
+
+        th,
+        td {
+            border: 1px solid var(--border-color);
+            padding: .8rem 1rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--accent-blue);
+            color: white;
+        }
+
+        tbody tr:nth-of-type(odd) {
+            background-color: var(--table-stripe-bg);
+        }
+
+        details {
+            border: 1px solid var(--accent-blue);
+            border-radius: .5rem;
+            margin: 1rem 0;
+            background: var(--details-open-bg);
+        }
+
+        details>summary {
+            padding: .8rem 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s;
+            background-color: #fff;
+            border-radius: .4rem;
+            background: linear-gradient(to right, #e3f2fd, #fff);
+        }
+
+        details[open]>summary {
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        details>*:not(summary) {
+            padding: 1rem 1.2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site">
+        <h1>とうほくプロコンワークショップ～ラズパイ Pico W で「どこでもポチっとIoTスイッチ」～</h1>
+    </header>
+
+    <div class="page-wrapper">
+        <main id="content">
+            <article class="doc" id="md-root">読み込み中…</article>
+        </main>
+        <aside class="toc-container" id="toc-container">
+            <h3>目次</h3>
+            <nav id="toc-nav"></nav>
+        </aside>
+    </div>
+
+    <footer class="site-footer">
+        <a class="workshop-list-btn" href="index.html">ワークショップ一覧を見る</a>
+        <p>制作：2026 仙台高専プログラミング部</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlight.js/lib/common/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js/styles/github-dark.min.css"
+        media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js/styles/github.min.css"
+        media="(prefers-color-scheme: light)">
+
+    <script>
+        // GitHubの画像/動画URLを直接表示可能なURLに変換
+        function toRawGitHub(url) {
+            try {
+                const u = new URL(url);
+                if (u.hostname === 'github.com' && !url.includes('raw.githubusercontent.com')) {
+                    // ?raw=true がついていない場合、blobをrawに変換する
+                    if (u.pathname.includes('/blob/')) {
+                        u.pathname = u.pathname.replace('/blob/', '/raw/');
+                        return u.toString();
+                    }
+                    // GIFやMP4に ?raw=true をつける
+                    if (url.endsWith('.gif') || url.endsWith('.mp4')) {
+                        u.searchParams.set('raw', 'true');
+                        return u.toString();
+                    }
+                }
+                return url;
+            } catch (e) { return url; }
+        }
+
+
+        // `summary`タグの不要なネストを整形
+        function normalizeSummary(container) {
+            const summaries = Array.from(container.querySelectorAll('summary'));
+            summaries.forEach(sm => {
+                if (sm.parentElement && sm.parentElement.tagName === 'DETAILS') return;
+                const h = document.createElement('h4');
+                h.textContent = sm.textContent || '項目';
+                sm.replaceWith(h);
+            });
+        }
+
+        // 目次（TOC）を自動生成
+        function generateTOC() {
+            const contentRoot = document.getElementById('md-root');
+            const tocNav = document.getElementById('toc-nav');
+            if (!contentRoot || !tocNav) return;
+
+            const headings = contentRoot.querySelectorAll('h2, h3');
+            if (headings.length === 0) {
+                document.querySelector('.toc-container').style.display = 'none';
+                return;
+            }
+
+            const tocList = document.createElement('ul');
+
+            headings.forEach((heading, index) => {
+                const id = heading.id || `heading-${index}`;
+                if (!heading.id) { heading.id = id; }
+                const listItem = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = `#${id}`;
+                link.textContent = heading.textContent;
+                if (heading.tagName === 'H3') { listItem.classList.add('toc-h3'); }
+                listItem.appendChild(link);
+                tocList.appendChild(listItem);
+            });
+            tocNav.appendChild(tocList);
+        }
+
+        // ★コピーボタンを追加する関数
+        function addCopyButtons() {
+            const codeBlocks = document.querySelectorAll('pre');
+            codeBlocks.forEach(block => {
+                const code = block.querySelector('code');
+                if (!code) return; // codeタグがない場合は何もしない
+
+                const btn = document.createElement('button');
+                btn.className = 'copy-btn';
+                btn.textContent = 'コピー';
+
+                btn.addEventListener('click', () => {
+                    navigator.clipboard.writeText(code.innerText).then(() => {
+                        btn.textContent = 'コピーしました！';
+                        btn.classList.add('copied');
+                        setTimeout(() => {
+                            btn.textContent = 'コピー';
+                            btn.classList.remove('copied');
+                        }, 2000);
+                    }).catch(err => {
+                        btn.textContent = '失敗';
+                        console.error('Copy failed', err);
+                    });
+                });
+                block.appendChild(btn);
+            });
+        }
+
+        // メインの処理
+        // Markdownを読み込み・描画する
+        async function renderMarkdown() {
+            const root = document.getElementById('md-root');
+
+            try {
+                const response = await fetch('iot-switch.md');
+                if (!response.ok) {
+                    throw new Error(`Failed to load markdown: ${response.status}`);
+                }
+
+                const md = await response.text();
+                if (window.marked) {
+                    marked.setOptions({ mangle: false, headerIds: false });
+                    const html = marked.parse(md);
+                    root.innerHTML = html;
+
+                    // 画像・動画のURLを直接表示可能な形式に変換
+                    root.querySelectorAll('img, video').forEach(media => {
+                        const raw = toRawGitHub(media.src);
+                        if (raw !== media.src) media.src = raw;
+                    });
+
+                    normalizeSummary(root);
+                    // シンタックスハイライトを適用
+                    if (window.hljs && typeof hljs.highlightAll === 'function') {
+                        hljs.highlightAll();
+                    }
+                    generateTOC();
+                    addCopyButtons(); // コピーボタンを追加
+                } else {
+                    root.textContent = md;
+                }
+            } catch (error) {
+                root.textContent = 'Failed to load markdown.';
+                console.error(error);
+            }
+        }
+
+        renderMarkdown();
+    </script>
+</body>
+
+</html>

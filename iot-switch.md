@@ -1,4 +1,4 @@
-# ラズパイ Pico W で「どこでもポチっとIoTスイッチ」
+<img width="723" height="123" alt="image" src="https://github.com/user-attachments/assets/192967ee-a16e-4ab8-b967-b8db9eccb279" /># ラズパイ Pico W で「どこでもポチっとIoTスイッチ」
 
 ## 準備
  - Raspberry Pi pico W（ラズベリー パイ ピコ ダブリュー）
@@ -77,6 +77,22 @@ print(5 + 4)
 5たす4は9です。
 </details><br>
 
+**💡応用問題：1年は何秒か計算してみよう！**
+
+ヒント
+ - 1年は365日
+ - 1日は24時間
+ - 1時間は60分
+ - 1分は60秒
+<details>
+<summary>解答</summary>
+
+```python
+print(365 * 24 * 60 * 60)
+```
+実行すると、1年は31536000秒と分かります。
+</details><br>
+
 ## 回路をつくる準備
 #### ブレッドボード
  - 部品を差し込む穴がたくさんある板  
@@ -134,7 +150,7 @@ GPIO5番ピン(GP05)を使用することをラズパイに伝える
 
 <video src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/videos/LED.mp4?raw=true" width="30%" autoplay loop muted playsinline></video>
 
-### 💡LED：応用問題💡
+### 💡LED：応用問題
 LEDの数を増やしてみよう
 
 <image src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/LED_4.png?raw=true" width="45%" autoplay loop muted playsinline></image>
@@ -185,7 +201,7 @@ GPIO0番ピン(GP0)を使用する
 
 <video src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/videos/servo.mp4?raw=true" width="80%" autoplay loop muted playsinline></video>
 
-### 💡サーボモーター：応用問題💡
+### 💡サーボモーター：応用問題
 #### あっちむいてホイを作ってみよう
 ヒント
  -  `import random` を最初に書くと「ランダム」が使えます
@@ -197,7 +213,7 @@ GPIO0番ピン(GP0)を使用する
 #### Wi-Fiとは
  - 電波でモノとモノをつなぐ仕組みです。
  - ケーブルを使わない→**無線接続**
-<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/Wi-Fi.png" width="40%" />
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/Wi-Fi.png" width="65%" />
 
 ### 無線接続のプログラム
 ```python
@@ -226,15 +242,17 @@ Wi-Fiに接続してWebサーバを起動
 ```
 #### 動作
 プログラムを実行して、表示された「**IPアドレス**」にアクセスします。
-<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/IPaddress.png" width="40%" />
+
+<img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/IP_address.png" width="40%" />
+
 IPアドレスはWebサイトの住所のことです。
 
-Webサイトができて、「Hello World」が表示されたことが確認できます。
+Webサイトができて、「Hello World」が表示されたことが確認できます。  
 ラズパイが「**Webサーバー**」になっているのです。
+
 <img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/Web_HelloWorld.png" width="40%" />
 
-### 💡Webサイト：応用問題💡
-#### 自分だけのWebページを作ってみよう！
+### 💡Webサイト：応用問題
 
 **🚀 きみだけのWebサイトをつくろう！カスタマイズ大作戦！**
 
@@ -251,7 +269,7 @@ html = """
 #### **⭐ Webサイトをかっこよくする 4ステップ**
 **元のプログラムに、これらのコードを追加するとどうなるか見てみよう！**
 
-| ステップ | 追加するコード | どこに入れる？ | 結果 |
+|  | 追加するコード | どこに入れる？ | 結果 |
 | ----- | ----- | ----- | ----- |
 | **1\. 土台づくり** | `<body> <h1>Hello World</h1></body>` | `<h1> </h1>` のそとがわ | Webページとして**正しくうごく**ための枠組みができます |
 | **2\. 背景色** | `<body style="background-color: skyblue;">` | `<body>`の中 | **画面ぜんぶが水色** になります |
@@ -271,6 +289,8 @@ html = """
 ```
 
 <img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/Web_HelloWorld_2.png" width="40%" />
+
+色を変えたり文字を追加したりして、自分だけのWebサイトを作ってみましょう。
 
 ## 作品制作：どこでもポチっとIoTスイッチ
 学んだ内容を組み合わせて作品を制作しましょう。
@@ -311,9 +331,11 @@ run_button(SSID, PASSWORD, html, push_servo)     # Wi-Fi接続してボタンW
 
 #### 動作
 Webページのボタンを押すとサーボモータが動きます。
-<video src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/videos/Web_servo.gif?raw=true" width="60%" autoplay loop muted playsinline></video>
+<video src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/videos/Web_servo.mp4?raw=true" width="60%" autoplay loop muted playsinline></video>
 
-応用すると・・・
+応用するとこんなこともできます・・・  
+**どこでもポチっとできるガジェット**です！
+
  - 照明のスイッチを無線で操作
 <img src="https://github.com/nitsc-proclub/Rasberry_Pi_pico_W/blob/main/images/servo_light.png" width="30%" />
 
@@ -402,4 +424,4 @@ While True:                         # ずっと繰り返す
 0.1秒ごとに明るいか暗いかを表示します。
 ___
 
-制作：2025 仙台高専プログラミング部
+制作：2026 仙台高専プログラミング部

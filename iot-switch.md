@@ -217,17 +217,17 @@ GPIO0番ピン(GP0)を使用する
 
 ### 無線接続のプログラム
 ```python
-from wifi import run	  # wifi.pyからrun関数をインポート
+from wifi import run  # wifi.pyからrun関数をインポート
 
-SSID = ‘’				  # Wi-FiのSSID
-PASSWORD = ‘’			  # Wi-Fiのパスワード
+SSID = ''  # Wi-FiのSSID
+PASSWORD = ''  # Wi-Fiのパスワード
 
 html = """
 <!doctype html>
 <h1>Hello World</h1>
-"""                  	  # HTMLの内容
+"""  # HTMLの内容
 
-run(SSID, PASSWORD, html) # Wi-Fiに接続してWebサーバを起動
+run(SSID, PASSWORD, html)  # Wi-Fiに接続してWebサーバを起動
 ```
 プログラムを日本語に直すと以下のようになります。
 ```サーボを制御する宣言

@@ -1,4 +1,4 @@
-<img width="723" height="123" alt="image" src="https://github.com/user-attachments/assets/192967ee-a16e-4ab8-b967-b8db9eccb279" /># ラズパイ Pico W で「どこでもポチっとIoTスイッチ」
+# ラズパイ Pico W で「どこでもポチっとIoTスイッチ」
 
 ## 準備
  - Raspberry Pi pico W（ラズベリー パイ ピコ ダブリュー）
